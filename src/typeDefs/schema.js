@@ -1,4 +1,4 @@
-const typeDefs = `
+export const typeDefs = `
 type User {
     id: ID!
     username: String!
@@ -7,13 +7,13 @@ type User {
     phone: Int
     photo: String
     bio: String
-    password: String
     token: String
     lastlogin: String
   }
   
   type Query {
     profile(id: ID!): User!
+    login(username: String!, password: String!): AuthPayLoad!
   }
   
   type Mutation {
@@ -24,20 +24,28 @@ type User {
       email: String!
       bio: String
       phone: Int
-    ): User!
-  
-    login(username: String!, password: String!): String!
-    editprofile(
-      name: String
-      bio: String
-      email: String
-      phone: String
-      password: String
       photo: String
+    ): AuthPayLoad!
+  
+   
+
+    updateProfile(
+      data: UpdateUserInput!
     ): User!
   }
   
+  input UpdateUserInput {
+    name: String
+      bio: String
+      email: String
+      phone: Int
+      password: String
+      photo: String
+  }
+
+  type AuthPayLoad{
+    user: User
+    token: String
+  }
 
 `;
-
-export { typeDefs as default };
