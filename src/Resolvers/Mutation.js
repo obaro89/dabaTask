@@ -6,7 +6,7 @@ const SECRET = process.env.SECRET;
 
 const Mutation = {
   register: async (parent, args, { prisma }, info) => {
-    let { name, email, password, username, bio, phone, photo } = args;
+    let { password, email } = args;
 
     password = await bcrypt.hash(password, 10);
 
@@ -20,24 +20,9 @@ const Mutation = {
       throw new Error("Email has been taken");
     }
 
-    const usernameTaken = await prisma.user.findUnique({
-      where: {
-        username,
-      },
-    });
-
-    if (usernameTaken) {
-      throw new Error("Username has been taken");
-    }
-
     const user = {
-      name,
-      username,
       email,
       password,
-      bio,
-      phone,
-      photo,
     };
 
     const newUser = await prisma.user.create({

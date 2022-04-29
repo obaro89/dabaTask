@@ -1,30 +1,24 @@
 export const typeDefs = `
 type User {
     id: ID!
-    username: String!
-    name: String!
+    username: String
+    name: String
     email: String!
     phone: Int
     photo: String
     bio: String
-    token: String
     lastlogin: String
   }
   
   type Query {
     profile(id: ID!): User!
-    login(username: String!, password: String!): AuthPayLoad!
+    login(email: String!, password: String!): AuthPayLoad!
   }
   
   type Mutation {
     register(
-      username: String!
-      name: String!
-      password: String!
       email: String!
-      bio: String
-      phone: Int
-      photo: String
+      password: String!
     ): AuthPayLoad!
   
    

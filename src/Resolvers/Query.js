@@ -6,10 +6,10 @@ const SECRET = process.env.SECRET;
 
 const Query = {
   login: async (parent, args, context, info) => {
-    const { username, password } = args;
+    const { email, password } = args;
     const user = await context.prisma.user.findUnique({
       where: {
-        username: username,
+        email: email,
       },
     });
 
