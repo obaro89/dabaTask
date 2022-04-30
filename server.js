@@ -3,10 +3,11 @@ import { typeDefs } from "./src/typeDefs/schema";
 import Query from "./src/Resolvers/Query";
 import Mutation from "./src/Resolvers/Mutation";
 import getUserId from "./src/auth/auth";
+const User = require("./src/Model/User");
 
-import { PrismaClient } from "@prisma/client";
+const dbConnection = require("./src/auth/db");
 
-const prisma = new PrismaClient();
+dbConnection();
 
 const server = new GraphQLServer({
   typeDefs,
@@ -16,7 +17,7 @@ const server = new GraphQLServer({
   },
   context: ({ request }) => {
     return {
-      prisma,
+      User,
       ...request,
       userId:
         request && request.headers.authorization ? getUserId(request) : null,

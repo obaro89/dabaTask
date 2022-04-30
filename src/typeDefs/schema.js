@@ -1,45 +1,47 @@
-export const typeDefs = `
-type User {
+import gql from "graphql-tag";
+
+export const typeDefs = gql`
+  type User {
     id: ID!
     username: String
     name: String
     email: String!
-    phone: Int
+    phone: String
     photo: String
     bio: String
     lastlogin: String
   }
-  
+
   type Query {
-    profile(id: ID!): User!
+    profile: User!
     login(email: String!, password: String!): AuthPayLoad!
   }
-  
+
   type Mutation {
-    register(
-      email: String!
-      password: String!
-    ): AuthPayLoad!
-  
-   
+    register(email: String!, password: String!): AuthPayLoad!
 
     updateProfile(
-      data: UpdateUserInput!
+      username: String
+      name: String
+      email: String!
+      phone: String
+      photo: String
+      bio: String
+      password: String
     ): User!
   }
-  
+
   input UpdateUserInput {
     name: String
-      bio: String
-      email: String
-      phone: Int
-      password: String
-      photo: String
+    bio: String
+    email: String
+    phone: String
+    password: String
+    photo: String
   }
 
-  type AuthPayLoad{
+  type AuthPayLoad {
     user: User
     token: String
   }
-
 `;

@@ -7,10 +7,8 @@ const SECRET = process.env.SECRET;
 const Query = {
   login: async (parent, args, context, info) => {
     const { email, password } = args;
-    const user = await context.prisma.user.findUnique({
-      where: {
-        email: email,
-      },
+    const user = await context.User.findOne({
+      email: email,
     });
 
     if (!user) throw new Error("Invalid Credentials");
@@ -27,13 +25,8 @@ const Query = {
     };
   },
 
-  profile: async (parent, args, { prisma }, info) => {
-    const { id } = args;
-    const user = await prisma.user.findUnique({
-      where: {
-        id,
-      },
-    });
+  profile: async (parent, args, { User, userId }, info) => {
+    const user = await User.findById(userId).select("-password");
 
     if (!user) {
       throw new Error("User does not exist");
