@@ -54,6 +54,8 @@ const Mutation = {
     if (args.photo) data.photo = args.photo;
     if (args.password) data.password = await bcrypt.hash(args.password, 10);
 
+    console.log(data);
+
     if (typeof data.email === "string") {
       const emailTaken = await User.findOne({
         email: data.email,
