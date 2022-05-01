@@ -9,29 +9,18 @@ import {
 } from "../types/types";
 
 import {
-  url,
   loginQuery,
   profileQuery,
-  updateProfileQuery,
   registerQuery,
+  updateProfileQuery,
 } from "../endpoint";
-import axios from "axios";
 
 import setAuthToken from "../utils/setAuthToken";
 
 export const login = (email, password) => async (dispatch) => {
   try {
-    const user = await axios({
-      url,
-      method: "POST",
-      data: {
-        query: loginQuery(email, password),
-      },
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const user = await loginQuery(email, password);
+    console.log(user.data.data.login);
 
     localStorage.setItem("token", user.data.data.login.token);
 
@@ -49,26 +38,15 @@ export const login = (email, password) => async (dispatch) => {
 
 export const signup = (email, password) => async (dispatch) => {
   try {
-    const user = await axios({
-      url,
-      method: "POST",
-      data: {
-        query: registerQuery(email, password),
-      },
+    const user = await registerQuery(email, password);
 
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    console.log(user.data);
-    localStorage.setItem("token", user.data.data.register.token);
+    localStorage.setItem("token", user.register.token);
 
     dispatch({
       type: SIGNUP,
       payload: {
-        user: user.data.data.register.user,
-        token: user.data.data.register.token,
+        user: user.register.user,
+        token: user.register.token,
       },
     });
   } catch (error) {
@@ -83,18 +61,8 @@ export const updateUser = (data) => async (dispatch) => {
   }
 
   try {
-    const user = await axios({
-      url,
-      method: "POST",
-      data: {
-        query: updateProfileQuery(data),
-      },
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(user.data);
+    const user = await updateProfileQuery({ data });
+    console.log(user);
     dispatch({
       type: UPDATE,
       payload: {
@@ -113,17 +81,7 @@ export const getProfile = () => async (dispatch) => {
   }
 
   try {
-    const user = await axios({
-      url,
-      method: "POST",
-      data: {
-        query: profileQuery(),
-      },
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const user = await profileQuery();
 
     dispatch({
       type: GET_PROFILE,

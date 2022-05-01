@@ -1,57 +1,79 @@
-export const url = "http://localhost:4000/";
+import gql from "graphql-tag";
+import axios from "axios";
 
-export const loginQuery = (email, password) => `
-query{
-    login(email:"${email}", password:"${password}"){
-        token,
-        user{
-            id,
-            email
+export const endpoint = "http://localhost:4000";
+
+export const loginQuery = async (email, password) => {
+  const query = gql`
+    query ($email: String!, $password: String!) {
+      login(email: $email, password: $password) {
+        user {
+          id
+          username
+          name
+          email
         }
-      
+        token
+      }
     }
-}
-`;
+  `;
+  return await axios.post(endpoint, {
+    query: query,
+    variables: { email, password },
+  });
+};
 
-export const profileQuery = () => `
-query{
-    profile{
-        name,
-        username,
-        email,
-        lastlogin,
-        bio,
+export const profileQuery = async () => {
+  const query = gql`
+    query {
+      profile {
+        name
+        username
+        email
+        lastlogin
+        bio
         phone
+      }
     }
-  }
-`;
+  `;
+  return await axios.post(endpoint, {
+    query: query,
+  });
+};
 
-export const registerQuery = (email, password) => `
-mutation{
-    register(email:"${email}", password:"${password}"){
-        token,
-        user{
-            id,
-            email
+export const registerQuery = async (email, password) => {
+  const query = gql`
+    mutation ($email: String!, $password: String!) {
+      register(email: $email, password: $password) {
+        token
+        user {
+          id
+          email
         }
-      
+      }
     }
-}
-`;
+  `;
+  return await axios.post(endpoint, {
+    query,
+    variables: { email, password },
+  });
+};
 
-export const updateProfileQuery = ({
-  name,
-  email,
-  bio,
-  phone,
-  photo,
-  password,
-}) => {
-  return `
-    mutation {
-        updateProfile(name: "${name}", email:"${email}", bio:"${bio}", phone:${phone}, photo:"${photo}", password:"${password}"){
-           email,id,name,phone,bio,photo
-          }
+export const updateProfileQuery = async (variables) => {
+  const query = gql`
+    mutation ($data: UpdateUserInput) {
+      updateProfile(data: $data) {
+        email
+        id
+        name
+        phone
+        bio
+        username
+      }
     }
-    `;
+  `;
+  return await axios.post(endpoint, {
+    query: query,
+    variables: variables,
+  });
 };

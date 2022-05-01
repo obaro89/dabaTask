@@ -52,7 +52,6 @@ const userReducer = (state = initialState, { payload, type }) => {
       return {
         ...state,
         profile: {
-          ...state.profile,
           ...payload.user,
         },
         isLoading: false,
