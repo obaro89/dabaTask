@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 import axios from "axios";
 
-export const endpoint = "http://localhost:4000";
+export const endpoint = "https://localhost:4000";
 
 export const loginQuery = async (email, password) => {
   const query = gql`

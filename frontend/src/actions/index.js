@@ -39,14 +39,17 @@ export const login = (email, password) => async (dispatch) => {
 export const signup = (email, password) => async (dispatch) => {
   try {
     const user = await registerQuery(email, password);
+    if (user) {
+      console.log(user);
+    }
 
-    localStorage.setItem("token", user.register.token);
+    localStorage.setItem("token", user.data.data.register.token);
 
     dispatch({
       type: SIGNUP,
       payload: {
-        user: user.register.user,
-        token: user.register.token,
+        user: user.data.data.register.user,
+        token: user.data.data.register.token,
       },
     });
   } catch (error) {
