@@ -8,11 +8,11 @@
 
 <div align="center">
   <h3>
-    <a href="https://{your-demo-link.your-domain}">
+    <a href="https://daba-task.vercel.app/">
       Demo
     </a>
     <span> | </span>
-    <a href="https://{your-url-to-the-solution}">
+    <a href="https://github.com/obaro89/dabaTask">
       Solution
     </a>
     <span> | </span>
@@ -49,28 +49,61 @@ Introduce your projects by taking a screenshot, video recordings or a gif. Try t
 <!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
 
 - [React](https://reactjs.org/)
-- [Vue.js](https://vuejs.org/)
-- [Tailwind](https://tailwindcss.com/)
+- [Material-UI](https://mui.com/)
+- [Redux](https://redux.js.org/)
+- [GraphQL YOGA](https://www.graphql-yoga.com/)
+- [MongoDB](https://www.mongodb.com/)
 
 ## Features
 
 <!-- List the features of your application or follow the template. Don't share the figma file here :) -->
 
 What features did you develop?
+Authentication - Login, Signup, update profile, logout
 
 ## How To Use
 
 <!-- Example: -->
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
 ```bash
 # Clone this repository
-$ git clone https://github.com/your-user-name/your-project-name
+$ git clone https://github.com/obaro89/dabaTask.git
 
-# Install dependencies
-$ npm install
-
-# Run the app
-$ npm start
 ```
+
+From your terminal and run npm install to install the dependencies
+
+```bash
+  npm install
+```
+
+When installation is complete, create an .env file with the variables DATABASE_URL and SECRET
+Assign your MongoDB URL and any SECRET
+
+```bash
+  npm start
+```
+
+then run the command above to start the server
+
+```bash
+  cd frontend
+```
+
+Navigate to the frontend folder from your terminal and run npm install to install the REACT dependencies
+
+```bash
+  npm install
+```
+
+install the react dependencies
+
+Locate the endpoint folder and replace the endpoint variable to your local server
+
+```bash
+  npm start
+```
+
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+
+Navigate to the frontend folder from your terminal and run npm install to install the REACT dependencies
