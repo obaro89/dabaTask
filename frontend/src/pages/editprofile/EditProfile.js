@@ -6,10 +6,9 @@ import Header from "../../components/header/Header";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import "./editprofile.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfile, updateUser } from "../../actions";
+import { updateUser } from "../../actions";
 import { toast } from "react-toastify";
 import UserAvatar from "../../components/avatar/UserAvatar";
-import { useEffect } from "react";
 import Spinner from "../../components/spinner/Spinner";
 
 const EditProfile = () => {
@@ -35,15 +34,18 @@ const EditProfile = () => {
     navigate("/login", { replace: true });
   }
 
-  const [userData, setUserData] = React.useState({
+  let [userData, setUserData] = React.useState({
     photo: photo || "",
     name: name || "",
     bio: bio || "",
     phone: phone || "",
     email: email || "",
     username: username || "",
-    cpassword: "",
+  });
+
+  const [passwords, setPasswords] = React.useState({
     password: "",
+    cpassword: "",
   });
 
   const onChange = (e) => {
@@ -52,13 +54,24 @@ const EditProfile = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const onChangePwd = (e) => {
+    setPasswords({
+      ...passwords,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (userData.password != userData.cpassword) {
+
+    if (passwords.password != passwords.cpassword) {
       return toast.error("passwords must match");
     }
-    delete userData.cpassword;
+    userData = {
+      ...userData,
+      password,
+    };
+
     dispatch(updateUser(userData));
   };
 
@@ -98,7 +111,7 @@ const EditProfile = () => {
                   <PhotoCameraIcon className="icon-camera" />
                 </div>
 
-                <input type="file" className="fileupload" />
+                <input type="file" className="fileupload" disabled />
               </div>
               <p>
                 <label>Name</label>
@@ -157,8 +170,8 @@ const EditProfile = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
-                  value={userData.password}
-                  onChange={onChange}
+                  value={passwords.password}
+                  onChange={onChangePwd}
                 />
               </p>
               <p className="cpassword">
@@ -166,8 +179,8 @@ const EditProfile = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   name="cpassword"
-                  value={userData.cpassword}
-                  onChange={onChange}
+                  value={passwords.cpassword}
+                  onChange={onChangePwd}
                 />
               </p>
               <span>
