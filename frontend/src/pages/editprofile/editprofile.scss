@@ -216,5 +216,34 @@
     z-index: 10;
     top: 30px;
     left: 25px;
+    display: none;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .content {
+    .innerHeader {
+      padding: 15px;
+      margin: 0 auto;
+    }
+    .profile {
+      width: 100%;
+      min-width: 96%;
+    }
+  }
+
+  .back {
+    margin-left: 15px;
+  }
+  .editForm {
+    padding: 15px;
+    p {
+      width: 100%;
+
+      input,
+      textarea {
+        width: 100%;
+      }
+    }
   }
 }

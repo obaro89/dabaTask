@@ -19,19 +19,15 @@ let initialState = {
   token: null,
   isLoggedIn: false,
   isLoading: true,
-  profile: {
-    name: null,
-    photo: null,
-    email: null,
-    phone: null,
-    username: null,
-    lastlogin: null,
-    isUpdated: false,
-  },
+  name: null,
+  photo: null,
+  email: null,
+  phone: null,
+  username: null,
+  lastlogin: null,
+  isUpdated: false,
   errors: [],
-  profileUpdate: {
-    success: false,
-  },
+  updatedSuccess: false,
 };
 
 const userReducer = (state = initialState, { payload, type }) => {
@@ -39,10 +35,7 @@ const userReducer = (state = initialState, { payload, type }) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        profile: {
-          ...state.profile,
-          ...payload.user,
-        },
+        ...payload.user,
         token: payload.token,
         isLoading: false,
         isLoggedIn: true,
@@ -54,10 +47,7 @@ const userReducer = (state = initialState, { payload, type }) => {
         token: payload.token,
         isLoading: false,
         isLoggedIn: true,
-        profile: {
-          ...state.profile,
-          ...payload.user,
-        },
+        ...payload.user,
         errors: [],
       };
 
@@ -67,10 +57,7 @@ const userReducer = (state = initialState, { payload, type }) => {
         isLoading: false,
         isLoggedIn: true,
         token: localStorage.token,
-        profile: {
-          ...state.profile,
-          ...payload.user,
-        },
+        ...payload.user,
         errors: [],
       };
 
@@ -80,11 +67,8 @@ const userReducer = (state = initialState, { payload, type }) => {
         isLoading: false,
         isLoggedIn: true,
         token: localStorage.token,
-        profile: {
-          ...state.profile,
-          ...payload.user,
-        },
-        profileUpdate: { success: true },
+        ...payload.user,
+        updatedSuccess: true,
         errors: [],
       };
 
@@ -93,6 +77,13 @@ const userReducer = (state = initialState, { payload, type }) => {
         ...state,
         isLoading: false,
         errors: payload,
+        name: null,
+        photo: null,
+        email: null,
+        phone: null,
+        username: null,
+        lastlogin: null,
+        isUpdated: false,
       };
 
     case LOGOUT:
@@ -102,7 +93,6 @@ const userReducer = (state = initialState, { payload, type }) => {
       return {
         ...state,
         token: null,
-        profile: null,
         isLoading: false,
         isLoggedIn: false,
         errors: payload,

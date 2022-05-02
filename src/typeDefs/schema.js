@@ -10,6 +10,7 @@ export const typeDefs = gql`
     photo: String
     bio: String
     lastlogin: String
+    isUpdated: Boolean
   }
 
   type Query {
@@ -21,6 +22,8 @@ export const typeDefs = gql`
     register(email: String!, password: String!): AuthPayLoad!
 
     updateProfile(data: UpdateUserInput): User!
+
+    updateLastLogin: User!
   }
 
   input UpdateUserInput {
@@ -31,6 +34,7 @@ export const typeDefs = gql`
     password: String
     photo: String
     username: String
+    isUpdated: Boolean
   }
 
   type AuthPayLoad {

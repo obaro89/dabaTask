@@ -10,13 +10,22 @@ import { logout } from "../../actions";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment } from "react";
+import UserAvatar from "../avatar/UserAvatar";
+import Spinner from "../spinner/Spinner";
 
 const Header = () => {
   const {
     isLoggedIn: isAuthenticated,
-    profile,
+    photo,
+    name,
+    bio,
+    phone,
+    email,
+    username,
+    lastlogin,
     isLoading,
   } = useSelector((state) => state.user);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,65 +46,68 @@ const Header = () => {
     navigate("/login", { replace: true });
   };
 
-  return (
-    <header>
-      <h5 className="logo">DABA Dev Task</h5>
-      <div className="profile">
-        {isAuthenticated && !isLoading && (
-          <Fragment>
-            <Avatar
-              sx={{
-                borderRadius: "5px",
-              }}
-              alt="Remy Sharp"
-              src="https://material-ui.com/static/images/avatar/1.jpg"
+  if (isLoading && (!name || !email)) {
+    return <Spinner />;
+  } else {
+    return (
+      <header>
+        <h5 className="logo">DABA Dev Task</h5>
+        <div className="profile">
+          {isAuthenticated && !isLoading && (
+            <Fragment>
+              <UserAvatar
+                styles={{
+                  borderRadius: "5px",
+                }}
+                name={name || email}
+              />
+              <span className="name">{username || email}</span>
+            </Fragment>
+          )}
+          <div>
+            <ArrowDropDownOutlinedIcon
+              className="icon"
+              onClick={handleClick}
+              aria-describedby={id}
             />
-            <span>{profile.username}</span>
-          </Fragment>
-        )}
-        <div>
-          <ArrowDropDownOutlinedIcon
-            className="icon"
-            onClick={handleClick}
-            aria-describedby={id}
-          />
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorReference="anchorPosition"
-            anchorPosition={{ top: 83, left: 1800 }}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
-            }}
-          >
-            <ul className="profileList">
-              <p>
-                <li>
-                  <AccountCircleIcon className="icon" />
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorReference="anchorPosition"
+              anchorPosition={{ top: 83, left: 1800 }}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+            >
+              <ul className="profileList">
+                <p>
+                  <li>
+                    <AccountCircleIcon className="icon" />
 
-                  <span>
-                    <Link to="/profile">Profile</Link>
-                  </span>
-                </li>
-                <li>
-                  <PeopleIcon className="icon" />
-                  <span>Group Chat</span>
-                </li>
-              </p>
+                    <span>
+                      <Link to="/profile">Profile</Link>
+                    </span>
+                  </li>
+                  <li>
+                    <PeopleIcon className="icon" />
+                    <span>Group Chat</span>
+                  </li>
+                </p>
 
-              <li className="logout">
-                <LogoutIcon className="icon" />
-                <span onClick={signOut}>Logout</span>
-              </li>
-            </ul>
-          </Popover>
+                <li className="logout">
+                  <LogoutIcon className="icon" />
+                  <span onClick={signOut}>Logout</span>
+                </li>
+              </ul>
+            </Popover>
+          </div>
         </div>
-      </div>
-    </header>
-  );
+      </header>
+    );
+  }
 };
 
 export default Header;

@@ -20,11 +20,11 @@ const Login = () => {
     password: "",
   });
 
-  const { isLoggedIn: isAuthenticated, profile } = useSelector(
+  const { isLoggedIn: isAuthenticated, isUpdated } = useSelector(
     (state) => state.user
   );
 
-  if (isAuthenticated && !profile.isUpdated) {
+  if (isAuthenticated && !isUpdated) {
     navigate("/profile/edit");
   } else if (isAuthenticated) {
     navigate("/profile", { replace: true });

@@ -39,7 +39,6 @@ header {
     display: flex;
 
     &:hover {
-      background-color: #f2f2f2;
       font-weight: 700;
       border-radius: 8px;
     }
@@ -67,6 +66,22 @@ header {
     span {
       color: red;
       cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: 720px) {
+  header {
+    padding: 15px;
+    .logo {
+      font-weight: bolder;
+      text-transform: uppercase;
+    }
+
+    .profile {
+      .name {
+        display: none;
+      }
     }
   }
 }
