@@ -87,6 +87,17 @@ const userReducer = (state = initialState, { payload, type }) => {
       };
 
     case LOGOUT:
+      return {
+        ...state,
+        name: null,
+        photo: null,
+        email: null,
+        phone: null,
+        username: null,
+        lastlogin: null,
+        isUpdated: false,
+        errors: [],
+      };
     case LOGIN_FAILED:
     case SIGNUP_FAILED:
     case GET_PROFILE_FAILED:
@@ -95,6 +106,13 @@ const userReducer = (state = initialState, { payload, type }) => {
         token: null,
         isLoading: false,
         isLoggedIn: false,
+        name: null,
+        photo: null,
+        email: null,
+        phone: null,
+        username: null,
+        lastlogin: null,
+        isUpdated: false,
         errors: payload,
       };
 
