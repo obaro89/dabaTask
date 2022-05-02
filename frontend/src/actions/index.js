@@ -206,6 +206,6 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT,
   });
-
+  document.location.href = "/login";
   toast.info("You are logged out.");
 };
