@@ -69,7 +69,7 @@ const EditProfile = () => {
     }
     userData = {
       ...userData,
-      password,
+      password: passwords.password,
     };
 
     dispatch(updateUser(userData));
