@@ -2,11 +2,27 @@ import { Avatar } from "@mui/material";
 import React from "react";
 import { Fragment } from "react";
 import Header from "../../components/header/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./profile.scss";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const {
+    isLoggedIn: isAuthenticated,
+    profile,
+    isLoading,
+  } = useSelector((state) => state.user);
+
+  if (!isLoading && isAuthenticated && !profile.isUpdated) {
+    navigate("/profile/edit");
+  } else if (!isLoading && !isAuthenticated) {
+    navigate("/login", { replace: true });
+  }
+
+  const { name, bio, email, phone, photo, username, lastlogin } = profile;
+
   return (
     <Fragment>
       <Header />
@@ -47,30 +63,28 @@ const Profile = () => {
           <div className="profileContent">
             <div className="profileItem">
               <span className="field">Name</span>
-              <span className="text">Osaretin Igbinobaro</span>
+              <span className="text">{name}</span>
             </div>
           </div>
 
           <div className="profileContent">
             <div className="profileItem">
               <span className="field">Bio</span>
-              <span className="text">
-                I am a fullstack Engineer (Javascript)
-              </span>
+              <span className="text">{bio}</span>
             </div>
           </div>
 
           <div className="profileContent">
             <div className="profileItem">
               <span className="field">Phone</span>
-              <span className="text">07030763334</span>
+              <span className="text">{phone}</span>
             </div>
           </div>
 
           <div className="profileContent">
             <div className="profileItem">
               <span className="field">Email</span>
-              <span className="text">igbinobaroosaretin@gmail.com</span>
+              <span className="text">{email}</span>
             </div>
           </div>
 

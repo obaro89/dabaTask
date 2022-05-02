@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 import axios from "axios";
 
-export const endpoint = "https://localhost:4000";
+export const endpoint = "https://daba-graphql-api.herokuapp.com";
 
 export const loginQuery = async (email, password) => {
   const query = gql`
@@ -9,9 +9,14 @@ export const loginQuery = async (email, password) => {
       login(email: $email, password: $password) {
         user {
           id
-          username
           name
+          username
           email
+          bio
+          phone
+          photo
+          isUpdated
+          lastlogin
         }
         token
       }
@@ -30,9 +35,11 @@ export const profileQuery = async () => {
         name
         username
         email
-        lastlogin
         bio
         phone
+        photo
+        isUpdated
+        lastlogin
       }
     }
   `;
@@ -76,4 +83,15 @@ export const updateProfileQuery = async (variables) => {
     query: query,
     variables: variables,
   });
+};
+
+export const updateLastLogin = async () => {
+  const query = gql`
+    mutation {
+      updateLastLogin {
+        lastlogin
+      }
+    }
+  `;
+  return await axios.post(endpoint, { query });
 };

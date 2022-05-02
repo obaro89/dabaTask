@@ -9,10 +9,12 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signup } from "../../actions";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const userState = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
 
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -29,9 +31,12 @@ const Signup = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("clicked");
     dispatch(signup(formData.email, formData.password));
   };
+
+  if (isAuthenticated) {
+    navigate("/profile/edit", { replace: true });
+  }
 
   return (
     <div className="center-box">
