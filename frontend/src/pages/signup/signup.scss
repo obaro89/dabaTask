@@ -135,3 +135,19 @@
     }
   }
 }
+
+@media screen and (max-width: 720px) {
+  .center-box {
+    width: 100%;
+
+    .inner-box {
+      width: 100%;
+      max-width: 95%;
+      padding: 20px;
+
+      .form {
+        width: 100% !important;
+      }
+    }
+  }
+}

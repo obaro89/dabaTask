@@ -2,7 +2,7 @@ import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { getProfile } from "./actions";
 import EditProfile from "./pages/editprofile/EditProfile";
@@ -10,6 +10,7 @@ import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
 import Signup from "./pages/signup/Signup";
 import setAuthToken from "./utils/setAuthToken";
+import Spinner from "./components/spinner/Spinner";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -17,9 +18,8 @@ if (localStorage.token) {
 
 function App() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getProfile());
-  }, [dispatch]);
+
+  dispatch(getProfile());
 
   return (
     <div className="App">
