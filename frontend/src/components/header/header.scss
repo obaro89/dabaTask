@@ -1,0 +1,87 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    span {
+      font-weight: bold;
+    }
+    .icon {
+      cursor: pointer;
+    }
+  }
+}
+.profileList {
+  list-style-type: none;
+  background-color: white;
+  margin: 10px;
+  padding: 10px 0 10px 0;
+  min-width: 200px;
+
+  p {
+    border-bottom: 1px solid gray;
+    width: 100%;
+  }
+
+  li {
+    width: 100%;
+    margin: 10px;
+    display: flex;
+
+    &:hover {
+      font-weight: 700;
+      border-radius: 8px;
+    }
+
+    .icon {
+      color: gray;
+      margin-right: 10px;
+    }
+
+    span {
+      color: gray;
+    }
+  }
+
+  .logout {
+    width: 100%;
+    margin: 10px;
+    display: flex;
+    font-weight: 40;
+    .icon {
+      color: red;
+      margin-right: 10px;
+    }
+
+    span {
+      color: red;
+      cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: 720px) {
+  header {
+    padding: 15px;
+    .logo {
+      font-weight: bolder;
+      text-transform: uppercase;
+    }
+
+    .profile {
+      .name {
+        display: none;
+      }
+    }
+  }
+}
