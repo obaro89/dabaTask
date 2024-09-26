@@ -27,6 +27,7 @@ import {
 import setAuthToken from "../utils/setAuthToken";
 
 export const login = (email, password) => async (dispatch) => {
+  localStorage.removeItem("token");
   dispatch({
     type: LOGIN_REQUEST,
   });
@@ -80,6 +81,7 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const signup = (email, password) => async (dispatch) => {
+  localStorage.removeItem("token");
   dispatch({
     type: SIGNUP_REQUEST,
   });
